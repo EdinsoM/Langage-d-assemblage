@@ -21,8 +21,9 @@
 ; IMPORT/EXPORT de procédure           
 
 	IMPORT 	Init_Cible
+	IMPORT 	DriverGlobal
 	
-	EXPORT main
+	EXPORT 	main
 	
 ;*******************************************************************************
 
@@ -44,6 +45,7 @@ main  	PROC
 
 		MOV R0,#0
 		BL Init_Cible;
+		BL DriverGlobal;
 		
 		ENDP
 

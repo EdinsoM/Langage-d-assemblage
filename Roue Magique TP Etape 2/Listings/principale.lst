@@ -127,45 +127,47 @@ WEAK]
    21 00000000         ; IMPORT/EXPORT de procédure           
    22 00000000         
    23 00000000                 IMPORT           Init_Cible
-   24 00000000         
+   24 00000000                 IMPORT           DriverGlobal
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-   25 00000000                 EXPORT           main
-   26 00000000         
-   27 00000000         ;*******************************************************
+   25 00000000         
+   26 00000000                 EXPORT           main
+   27 00000000         
+   28 00000000         ;*******************************************************
                        ************************
-   28 00000000         
    29 00000000         
-   30 00000000         ;*******************************************************
+   30 00000000         
+   31 00000000         ;*******************************************************
                        ************************
-   31 00000000                 AREA             mesdonnees, data, readwrite
-   32 00000000         
-   33 00000000         ;*******************************************************
+   32 00000000                 AREA             mesdonnees, data, readwrite
+   33 00000000         
+   34 00000000         ;*******************************************************
                        ************************
-   34 00000000         
-   35 00000000                 AREA             moncode, code, readonly
-   36 00000000         
+   35 00000000         
+   36 00000000                 AREA             moncode, code, readonly
    37 00000000         
    38 00000000         
-   39 00000000         ;*******************************************************
+   39 00000000         
+   40 00000000         ;*******************************************************
                        ************************
-   40 00000000         ; Procédure principale et point d'entrée du projet
-   41 00000000         ;*******************************************************
+   41 00000000         ; Procédure principale et point d'entrée du projet
+   42 00000000         ;*******************************************************
                        ************************
-   42 00000000         main    PROC
-   43 00000000         ;*******************************************************
+   43 00000000         main    PROC
+   44 00000000         ;*******************************************************
                        ************************
-   44 00000000         
-   45 00000000 F04F 0000       MOV              R0,#0
-   46 00000004 F7FF FFFE       BL               Init_Cible  ;
-   47 00000008         
-   48 00000008                 ENDP
-   49 00000008         
-   50 00000008                 END
+   45 00000000         
+   46 00000000 F04F 0000       MOV              R0,#0
+   47 00000004 F7FF FFFE       BL               Init_Cible  ;
+   48 00000008 F7FF FFFE       BL               DriverGlobal ;
+   49 0000000C         
+   50 0000000C                 ENDP
+   51 0000000C         
+   52 0000000C                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\principale.d -o.\objects\principale.o -I.\RTE\Device\STM
 32F103RB -I.\RTE\_Simul_ -IC:\Users\emarina\AppData\Local\Arm\Packs\ARM\CMSIS\5
@@ -184,7 +186,7 @@ mesdonnees 00000000
 
 Symbol: mesdonnees
    Definitions
-      At line 31 in file Principale.asm
+      At line 32 in file Principale.asm
    Uses
       None
 Comment: mesdonnees unused
@@ -199,15 +201,15 @@ main 00000000
 
 Symbol: main
    Definitions
-      At line 42 in file Principale.asm
+      At line 43 in file Principale.asm
    Uses
-      At line 25 in file Principale.asm
+      At line 26 in file Principale.asm
 Comment: main used once
 moncode 00000000
 
 Symbol: moncode
    Definitions
-      At line 35 in file Principale.asm
+      At line 36 in file Principale.asm
    Uses
       None
 Comment: moncode unused
@@ -389,13 +391,21 @@ Comment: TIM4_SR unused
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 External symbols
 
+DriverGlobal 00000000
+
+Symbol: DriverGlobal
+   Definitions
+      At line 24 in file Principale.asm
+   Uses
+      At line 48 in file Principale.asm
+Comment: DriverGlobal used once
 Init_Cible 00000000
 
 Symbol: Init_Cible
    Definitions
       At line 23 in file Principale.asm
    Uses
-      At line 46 in file Principale.asm
+      At line 47 in file Principale.asm
 Comment: Init_Cible used once
 |Lib$$Request$$armlib| 00000000
 
@@ -405,5 +415,5 @@ Symbol: |Lib$$Request$$armlib|
    Uses
       None
 Comment: |Lib$$Request$$armlib| unused
-2 symbols
-359 symbols in table
+3 symbols
+360 symbols in table

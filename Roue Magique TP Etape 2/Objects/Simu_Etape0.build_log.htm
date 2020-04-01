@@ -26,11 +26,15 @@ Project File Date:  03/24/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Simulé'
+Rebuild target 'Simulé'
+assembling Principale.asm...
+assembling Lumiere.s...
 assembling FonctionEtape2.asm...
-FonctionEtape2.asm(80): warning: A1581W: Added 2 bytes of padding at address 0x22
+FonctionEtape2.asm(131): warning: A1581W: Added 2 bytes of padding at address 0x82
+assembling startup_stm32f10x_md.s...
+compiling system_stm32f10x.c...
 linking...
-Program Size: Code=4616 RO-data=268 RW-data=144 ZI-data=1024  
+Program Size: Code=4764 RO-data=268 RW-data=192 ZI-data=1024  
 ".\Objects\Simu_Etape0.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -59,10 +63,10 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_stm32f10x_md.s
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\system_stm32f10x.c
       Include file:  RTE_Driver\Config\RTE_Device.h
-      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

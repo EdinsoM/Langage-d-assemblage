@@ -14,6 +14,7 @@
 
 	IMPORT	Barrette1
 	IMPORT 	Init_Cible
+	EXPORT	DriverGlobal
 ;**************************************************************************
 
 
@@ -48,38 +49,67 @@ DriverGlobal	PROC
 		MOV		R1, #(0x01<<5)
 		STRB 	R1, [R2]
 		
-		MOV		R1, #1 ;NbLED
+		MOV		R1, #0 ;NbLED
 Pour
-		CMP		R1, #48
+		CMP		R1, #47
 		BNE		FairePour
+		B		Semaphore
 		
 FairePour
 		LDR		R2,=Barrette1
 		LDRB	R3,[R2,R1]
 		LSL		R3, R3, #24
 			
-		MOV		R4, #1 ;NbBit
+		MOV		R4, #0 ;NbBit
 AutrePour		
-		CMP		R4, #12
+		CMP		R4, #11
 		BNE		FaireAutrePour
 
 FaireAutrePour
-		LDR		R5, =0X40010814
+		LDR		R5, =0X40010814 ; Reset(SCLK)
 		MOV		R6, #(0x01<<5)
 		STRB	R6, [R5]
 		
-		LDR		R5, =R3
-		LDRB	R6, [R5,#8]
-		CMP		R6, 0x800000000
-		BEQ		SetSin
+		AND		R6, R3, #0x80000000
+		CMP		R6, #0x80000000
+		BEQ		SetSin	;commence le si (if)
 		B		ResetSin
 
 SetSin	
 		LDR		R7, =0X40010810
 		MOV		R8, #(0x01<<7)
 		STRB	R8,	[R7]
-
+		B		AvantFinir
 		
+ResetSin		
+		LDR		R7, =0x40010814
+		MOV		R8, #(0x01<<7)
+		STRB	R8, [R7]
+		;le si est fini
+
+		LSL		R3, R3, #1
+
+		LDR		R10, =0X40010810
+		MOV		R9, #(0x01<<5)
+		STRB 	R9, [R10] ;Set(SCLK)
+		
+AvantFinir	;Sont finis les deux boucles? On verra
+		
+		ADD		R4, R4, #1 ;NbBit+1
+		CMP		R4, #11
+		BNE		AutrePour
+		
+		ADD		R1, R1, #1 ;NbLed+1
+		CMP		R1,	#47
+		BNE		Pour
+		
+		POP		{R1,R10}
+
+;Les deux boucles sont finis
+
+Semaphore
+		MOV		R1, #0 ;DataSend = 0
+		BX		LR
 		ENDP
 
 ;########################################################################

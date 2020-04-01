@@ -14,22 +14,22 @@
 	AREA  mesdonnees, data, readwrite
 		
 			;	Rouge	 Vert	 Bleu
-Barrette1	DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
-			DCB		0,		0,		0
+Barrette1	DCB		1,	    2,		3
+			DCB		4,		5,		6
+			DCB		7,		8,		9
+			DCB		10,		11,		12
+			DCB		13,		14,		15
+			DCB		16,		17,		18
+			DCB		19,		20,		21
+			DCB		22,		23,		24
+			DCB		25,		26,		27
+			DCB		28,		29,		30
+			DCB		31,		32,		33
+			DCB		34,		35,		36
+			DCB		37,		38,		39
+			DCB		40,		41,		42
+			DCB		43,		44,		45
+			DCB		46,		47,		50
 			
 	END
 
