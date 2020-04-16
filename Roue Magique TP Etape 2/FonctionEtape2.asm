@@ -45,11 +45,8 @@
 DriverGlobal	PROC
 	
 		PUSH 	{R1,R10}
-		LDR		R2, =0X40010810
-		MOV		R1, #(0x01<<5)
-		STRB 	R1, [R2]
-		
-		MOV		R1, #0 ;NbLED
+		BL 		SetSCLK
+		MOV		R1, #0 	;NbLED
 Pour
 		CMP		R1, #47
 		BNE		FairePour
@@ -66,9 +63,8 @@ AutrePour
 		BNE		FaireAutrePour
 
 FaireAutrePour
-		LDR		R5, =0X40010814 ; Reset(SCLK)
-		MOV		R6, #(0x01<<5)
-		STRB	R6, [R5]
+		
+		BL		ResetSCLK
 		
 		AND		R6, R3, #0x80000000
 		CMP		R6, #0x80000000
@@ -89,9 +85,7 @@ ResetSin
 
 		LSL		R3, R3, #1
 
-		LDR		R10, =0X40010810
-		MOV		R9, #(0x01<<5)
-		STRB 	R9, [R10] ;Set(SCLK)
+		BL 		SetSCLK
 		
 AvantFinir	;Sont finis les deux boucles? On verra
 		
@@ -111,6 +105,23 @@ Semaphore
 		MOV		R1, #0 ;DataSend = 0
 		BX		LR
 		ENDP
+
+SetSCLK		PROC
+		LDR		R2, = GPIOBASEA + OffsetSet
+		MOV		R1, #(0x01<<5)
+		STRB 	R1, [R2]
+		BX		LR
+		
+		ENDP
+			
+ResetSCLK	PROC
+		LDR		R5, = GPIOBASEA + OffsetReset ; Reset(SCLK) 
+		MOV		R6, #(0x01<<5)
+		STRB	R6, [R5]
+		BX		LR
+		
+		ENDP
+		
 
 ;########################################################################
 ; Procédure ????
