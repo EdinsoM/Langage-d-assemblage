@@ -164,7 +164,7 @@ ARM Macro Assembler    Page 3
    45 00000008         DriverGlobal
                                PROC
    46 00000008         
-   47 00000008 E92D 0402       PUSH             {R1,R10}
+   47 00000008 E92D 0102       PUSH             {R1,R8}
    48 0000000C F7FF FFFE       BL               SetSCLK
    49 00000010 F04F 0100       MOV              R1, #0      ;NbLED
    50 00000014         Pour
@@ -226,7 +226,7 @@ ARM Macro Assembler    Page 4
    97 00000064 292F            CMP              R1, #47
    98 00000066 D1D5            BNE              Pour
    99 00000068         
-  100 00000068 E8BD 0402       POP              {R1,R10}
+  100 00000068 E8BD 0102       POP              {R1,R8}
   101 0000006C         
   102 0000006C         ;Les deux boucles sont finis
   103 0000006C         

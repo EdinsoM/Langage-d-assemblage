@@ -44,7 +44,7 @@
 
 DriverGlobal	PROC
 	
-		PUSH 	{R1,R10}
+		PUSH 	{R1,R8}
 		BL 		SetSCLK
 		MOV		R1, #0 	;NbLED
 Pour
@@ -97,7 +97,7 @@ AvantFinir	;Sont finis les deux boucles? On verra
 		CMP		R1,	#47
 		BNE		Pour
 		
-		POP		{R1,R10}
+		POP		{R1,R8}
 
 ;Les deux boucles sont finis
 
