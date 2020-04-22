@@ -42,7 +42,7 @@
 ;*******************************************************************************
 	AREA  mesdonnees, data, readwrite
 		
-	M EQU 2
+	;M EQU 2
 		
 ;*******************************************************************************
 	
@@ -81,7 +81,7 @@ FinCapteur
 		CMP R4, #1 
 		BEQ FinBoucle	; si le capteur est à 1, on sort
 		
-		CMP R1, #M		
+		CMP R1, #2		
 		BEQ FinBoucle	; si on est passé M fois dans la boucle, on sort
 	
 ; gestion de Barrette 1 et temporisation

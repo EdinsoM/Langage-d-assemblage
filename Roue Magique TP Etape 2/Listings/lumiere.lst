@@ -1,0 +1,130 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;*******************************************************
+                       *****************
+    2 00000000                 THUMB
+    3 00000000                 REQUIRE8
+    4 00000000                 PRESERVE8
+    5 00000000         ;*******************************************************
+                       *****************
+    6 00000000         ;      IMPORT/EXPORT Système
+    7 00000000         ;*******************************************************
+                       *****************
+    8 00000000         
+    9 00000000                 IMPORT           ||Lib$$Request$$armlib|| [CODE,
+WEAK]
+   10 00000000         
+   11 00000000                 EXPORT           Barrette1
+   12 00000000                 EXPORT           Barrette2
+   13 00000000         
+   14 00000000         
+   15 00000000         ;*******************************************************
+                       ************************
+   16 00000000                 AREA             mesdonnees, data, readwrite
+   17 00000000         
+   18 00000000         ; Rouge  Vert  Bleu
+   19 00000000         
+   20 00000000 FF 00 00 
+                       Barrette1
+                               DCB              255, 0,  0
+   21 00000003 00 00 00        DCB              0,  0,  0
+   22 00000006 00 00 00        DCB              0,  0,  0
+   23 00000009 00 00 00        DCB              0,  0,  0
+   24 0000000C 00 00 00        DCB              0,  0,  0
+   25 0000000F 00 00 00        DCB              0,  0,  0
+   26 00000012 00 00 00        DCB              0,  0,  0
+   27 00000015 00 AA 00        DCB              0,  0xAA, 0
+   28 00000018 00 00 00        DCB              0,  0,  0
+   29 0000001B 00 00 00        DCB              0,  0,  0
+   30 0000001E 00 00 00        DCB              0,  0,  0
+   31 00000021 00 00 00        DCB              0,  0,  0
+   32 00000024 00 00 00        DCB              0,  0,  0
+   33 00000027 00 00 00        DCB              0,  0,  0
+   34 0000002A 00 00 00        DCB              0,  0,  0
+   35 0000002D 00 00 FF        DCB              0,  0,  255
+   36 00000030         
+   37 00000030 FF 00 00 
+                       Barrette2
+                               DCB              255, 0,  0
+   38 00000033 FF 00 00        DCB              255, 0,  0
+   39 00000036 FF 00 00        DCB              255, 0,  0
+   40 00000039 FF 00 00        DCB              255, 0,  0
+   41 0000003C FF 00 00        DCB              255, 0,  0
+   42 0000003F FF 00 00        DCB              255, 0,  0
+   43 00000042 FF 00 00        DCB              255, 0,  0
+   44 00000045 FF 00 00        DCB              255, 0,  0
+   45 00000048 FF 00 00        DCB              255, 0,  0
+   46 0000004B FF 00 00        DCB              255, 0,  0
+   47 0000004E FF 00 00        DCB              255, 0,  0
+   48 00000051 FF 00 00        DCB              255, 0,  0
+   49 00000054 FF 00 00        DCB              255, 0,  0
+   50 00000057 FF 00 00        DCB              255, 0,  0
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 0000005A FF 00 00        DCB              255, 0,  0
+   52 0000005D FF 00 00        DCB              255, 0,  0
+   53 00000060         
+   54 00000060                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\lumiere.d -o.\objects\lumiere.o -I.\RTE\Device\STM32F103
+RB -I.\RTE\_Simul_ -IC:\Users\emarina\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\C
+MSIS\Core\Include -IC:\Users\emarina\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP
+\2.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 
+1" --predefine="__UVISION_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predef
+ine="STM32F10X_MD SETA 1" --predefine="STM32F10X_MD SETA 1" --list=.\listings\l
+umiere.lst Lumiere.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Barrette1 00000000
+
+Symbol: Barrette1
+   Definitions
+      At line 20 in file Lumiere.asm
+   Uses
+      At line 11 in file Lumiere.asm
+Comment: Barrette1 used once
+Barrette2 00000030
+
+Symbol: Barrette2
+   Definitions
+      At line 37 in file Lumiere.asm
+   Uses
+      At line 12 in file Lumiere.asm
+Comment: Barrette2 used once
+mesdonnees 00000000
+
+Symbol: mesdonnees
+   Definitions
+      At line 16 in file Lumiere.asm
+   Uses
+      None
+Comment: mesdonnees unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+|Lib$$Request$$armlib| 00000000
+
+Symbol: |Lib$$Request$$armlib|
+   Definitions
+      At line 9 in file Lumiere.asm
+   Uses
+      None
+Comment: |Lib$$Request$$armlib| unused
+1 symbol
+339 symbols in table
