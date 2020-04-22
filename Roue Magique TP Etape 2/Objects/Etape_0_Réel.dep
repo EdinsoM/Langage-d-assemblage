@@ -1,20 +1,0 @@
-Dependencies for Project 'Etape_0', Target 'Réel': (DO NOT MODIFY !)
-F (.\Principale.asm)(0x5E6BA9A2)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\Device\STM32F107VC-I.\RTE\_R_el-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 525" --pd "_RTE_ SETA 1" --pd "STM32F10X_CL SETA 1" --pd "STM32F10X_CL SETA 1"--list .\listings\principale.lst --xref -o .\objects\principale.o --depend .\objects\principale.d)
-I (REG_UTILES.inc)(0x5AB8CF98)
-F (.\FonctionEtape.asm)(0x5E6BA577)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\Device\STM32F107VC-I.\RTE\_R_el-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 525" --pd "_RTE_ SETA 1" --pd "STM32F10X_CL SETA 1" --pd "STM32F10X_CL SETA 1"--list .\listings\fonctionetape.lst --xref -o .\objects\fonctionetape.o --depend .\objects\fonctionetape.d)
-I (REG_UTILES.inc)(0x5AB8CF98)
-F (.\Matos.lib)(0x5CA777D2)()
-F (RTE\Device\STM32F103RB\RTE_Device.h)(0x57D2BFF0)()
-F (RTE\Device\STM32F103RB\startup_stm32f10x_md.s)(0x5825A8EC)()
-F (RTE\Device\STM32F103RB\system_stm32f10x.c)(0x5825A8EC)()
-F (RTE\Device\STM32F107VC\RTE_Device.h)(0x57D2BFF0)()
-F (RTE\Device\STM32F107VC\startup_stm32f10x_cl.s)(0x5825A8EC)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\Device\STM32F107VC-I.\RTE\_R_el-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 525" --pd "_RTE_ SETA 1" --pd "STM32F10X_CL SETA 1" --pd "STM32F10X_CL SETA 1"--list .\listings\startup_stm32f10x_cl.lst --xref -o .\objects\startup_stm32f10x_cl.o --depend .\objects\startup_stm32f10x_cl.d)
-F (RTE\Device\STM32F107VC\system_stm32f10x.c)(0x5825A8EC)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\pilotes\Include-I.\RTE\Device\STM32F107VC-I.\RTE\_R_el-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F10X_CL -DSTM32F10X_CL-o .\objects\system_stm32f10x.o --omf_browse .\objects\system_stm32f10x.crf --depend .\objects\system_stm32f10x.d)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h)(0x58258CCC)
-I (.\RTE\_R_el\RTE_Components.h)(0x5C7FA7CA)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\core_cm3.h)(0x5A8E7442)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F218E)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_version.h)(0x5A55EA42)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_compiler.h)(0x5A8E7442)
-I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include\cmsis_armcc.h)(0x5A8E7442)
-I (C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\system_stm32f10x.h)(0x58258CCC)

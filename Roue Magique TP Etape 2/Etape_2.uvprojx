@@ -388,14 +388,14 @@
               <FilePath>.\Principale.asm</FilePath>
             </File>
             <File>
-              <FileName>FonctionEtape2.asm</FileName>
+              <FileName>FonctionEtape.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\FonctionEtape2.asm</FilePath>
+              <FilePath>.\FonctionEtape.asm</FilePath>
             </File>
             <File>
-              <FileName>Lumiere.s</FileName>
+              <FileName>Lumiere.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\Lumiere.s</FilePath>
+              <FilePath>.\Lumiere.asm</FilePath>
             </File>
           </Files>
         </Group>
@@ -799,14 +799,14 @@
               <FilePath>.\Principale.asm</FilePath>
             </File>
             <File>
-              <FileName>FonctionEtape2.asm</FileName>
+              <FileName>FonctionEtape.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\FonctionEtape2.asm</FilePath>
+              <FilePath>.\FonctionEtape.asm</FilePath>
             </File>
             <File>
-              <FileName>Lumiere.s</FileName>
+              <FileName>Lumiere.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\Lumiere.s</FilePath>
+              <FilePath>.\Lumiere.asm</FilePath>
             </File>
           </Files>
         </Group>
