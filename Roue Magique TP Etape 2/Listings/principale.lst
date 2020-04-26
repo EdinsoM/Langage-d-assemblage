@@ -156,7 +156,8 @@ ARM Macro Assembler    Page 3
                        ************************
    43 00000000                 AREA             mesdonnees, data, readwrite
    44 00000000         
-   45 00000000         ;M EQU 2
+   45 00000000 00000002 
+                       M       EQU              2
    46 00000000         
    47 00000000         ;*******************************************************
                        ************************
@@ -192,13 +193,13 @@ ARM Macro Assembler    Page 3
                                                             ec 0x100
    71 00000014 D002            BEQ              Capteur0    ;si ce n'est pas ég
                                                             al, on laisse le R4
-                                                             à 0
 
 
 
 ARM Macro Assembler    Page 4 
 
 
+                                                             à 0
    72 00000016 F04F 0401       MOV              R4,#1       ;sinon on met R4 à 
                                                             1
    73 0000001A E001            B                FinCapteur
@@ -220,7 +221,7 @@ ARM Macro Assembler    Page 4
    82 00000022 D016            BEQ              FinBoucle   ; si le capteur est
                                                              à 1, on sort
    83 00000024         
-   84 00000024 2902            CMP              R1, #2
+   84 00000024 2902            CMP              R1, #M
    85 00000026 D014            BEQ              FinBoucle   ; si on est passé M
                                                              fois dans la boucl
                                                             e, on sort
@@ -257,13 +258,13 @@ ARM Macro Assembler    Page 4
   113 00000052         
   114 00000052         
   115 00000052                 ENDP
-  116 00000052         
 
 
 
 ARM Macro Assembler    Page 5 
 
 
+  116 00000052         
   117 00000052                 END
               00 00 40010808 
               00000000 
@@ -369,6 +370,14 @@ Symbol: GPIOBASEB
    Uses
       None
 Comment: GPIOBASEB unused
+M 00000002
+
+Symbol: M
+   Definitions
+      At line 45 in file Principale.asm
+   Uses
+      At line 84 in file Principale.asm
+Comment: M used once
 MaskBlank 00000004
 
 Symbol: MaskBlank
@@ -404,6 +413,12 @@ Comment: MaskSclk unused
 MaskSerial_Dots 00000080
 
 Symbol: MaskSerial_Dots
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Absolute symbols
+
    Definitions
       At line 34 in file REG_UTILES.inc
    Uses
@@ -412,12 +427,6 @@ Comment: MaskSerial_Dots unused
 MaskSerial_In1 00000080
 
 Symbol: MaskSerial_In1
-
-
-
-ARM Macro Assembler    Page 2 Alphabetic symbol ordering
-Absolute symbols
-
    Definitions
       At line 33 in file REG_UTILES.inc
    Uses
@@ -469,6 +478,12 @@ Symbol: OffsetSet
    Definitions
       At line 29 in file REG_UTILES.inc
    Uses
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Absolute symbols
+
       None
 Comment: OffsetSet unused
 SCB_VTOR E000ED08
@@ -477,12 +492,6 @@ Symbol: SCB_VTOR
    Definitions
       At line 43 in file REG_UTILES.inc
    Uses
-
-
-
-ARM Macro Assembler    Page 3 Alphabetic symbol ordering
-Absolute symbols
-
       None
 Comment: SCB_VTOR unused
 TIM1_CNT 40012C24
@@ -517,7 +526,7 @@ Symbol: TIM4_SR
    Uses
       None
 Comment: TIM4_SR unused
-19 symbols
+20 symbols
 
 
 
@@ -629,4 +638,4 @@ Symbol: |Lib$$Request$$armlib|
       None
 Comment: |Lib$$Request$$armlib| unused
 12 symbols
-375 symbols in table
+376 symbols in table
