@@ -105,11 +105,7 @@ ARM Macro Assembler    Page 2
    47 00000000 40000810 
                        TIM4_SR EQU              0x40000810
    48 00000000         
-   49 00000000         
-   50 00000000         
-   51 00000000         
-   52 00000000         
-   53 00000000                 END
+   49 00000000                 END
    10 00000000         
    11 00000000         
    12 00000000         ;*******************************************************
@@ -127,26 +123,30 @@ WEAK]
    21 00000000         ; IMPORT/EXPORT de procédure           
    22 00000000         
    23 00000000                 IMPORT           Init_Cible
-   24 00000000         
+   24 00000000                 IMPORT           Run_Timer1
+   25 00000000                 IMPORT           Stop_Timer1
+   26 00000000                 IMPORT           Timer_CC
+   27 00000000                 IMPORT           Timer_UP
+   28 00000000                 IMPORT           Timer_UP4
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-   25 00000000                 EXPORT           main
-   26 00000000         
-   27 00000000         ;*******************************************************
-                       ************************
-   28 00000000         
    29 00000000         
-   30 00000000         ;*******************************************************
+   30 00000000                 EXPORT           main
+   31 00000000         
+   32 00000000         ;*******************************************************
                        ************************
-   31 00000000                 AREA             mesdonnees, data, readwrite, al
+   33 00000000         
+   34 00000000         
+   35 00000000         ;*******************************************************
+                       ************************
+   36 00000000                 AREA             mesdonnees, data, readwrite, al
 ign = 9
-   32 00000000         
-   33 00000000 00 00 00 
-              00 00 00 
+   37 00000000         
+   38 00000000 00 00 00 
               00 00 00 
               00 00 00 
               00 00 00 
@@ -516,51 +516,95 @@ ARM Macro Assembler    Page 8
               00 00 00 
               00 00 00 
               00 00 00 
+              00 00 00 
               00       TVI     space            1024        ;4*(N+1)? soit N = 
-                                                            256 (on va copier t
 
 
 
 ARM Macro Assembler    Page 9 
 
 
+                                                            256 (on va copier t
                                                             oute la table)
-   34 00000400         
-   35 00000400         ;*******************************************************
+   39 00000400 00000000 
+                       Tourne  DCD              0
+   40 00000404 00000000 
+                       Tr      DCD              0
+   41 00000408         
+   42 00000408         ;*******************************************************
                        ************************
-   36 00000400         
-   37 00000400                 AREA             moncode, code, readonly
-   38 00000000         
-   39 00000000         ;*******************************************************
+   43 00000408         
+   44 00000408                 AREA             moncode, code, readonly
+   45 00000000         
+   46 00000000         ;*******************************************************
                        ************************
-   40 00000000         ; Procédure principale et point d'entrée du projet
-   41 00000000         ;*******************************************************
+   47 00000000         ; Procédure principale et point d'entrée du projet
+   48 00000000         ;*******************************************************
                        ************************
-   42 00000000         main    PROC
-   43 00000000         ;*******************************************************
+   49 00000000         main    PROC
+   50 00000000         ;*******************************************************
                        ************************
-   44 00000000         
-   45 00000000 F04F 0002       MOV              R0,#2
-   46 00000004 F7FF FFFE       BL               Init_Cible  ;
-   47 00000008         
-   48 00000008 4807            LDR              R0, =TVI
-   49 0000000A 4908            LDR              R1, =SCB_VTOR
-   50 0000000C 6008            STR              R0, [R1]
-   51 0000000E         
-   52 0000000E F04F 0100       LDR              R1, =0x00000000
-   53 00000012 F04F 0200       MOV              R2, #0
-   54 00000016         
-   55 00000016         CopierTVI
-   56 00000016 F840 1B04       STR              R1, [R0], #4
-   57 0000001A F101 0101       ADD              R1, R1, #1
-   58 0000001E F102 0201       ADD              R2, R2, #1
-   59 00000022 F5B2 7F80       CMP              R2, #256
-   60 00000026 D1F6            BNE              CopierTVI
-   61 00000028         
-   62 00000028                 ENDP
-   63 00000028                 END
+   51 00000000 F04F 0002       MOV              R0,#2
+   52 00000004 F7FF FFFE       BL               Init_Cible  ;
+   53 00000008         
+   54 00000008 480E            LDR              R0, =TVI
+   55 0000000A 490F            LDR              R1, =SCB_VTOR
+   56 0000000C 6008            STR              R0, [R1]
+   57 0000000E         
+   58 0000000E F04F 0100       LDR              R1, =0x00000000
+   59 00000012 F04F 0200       MOV              R2, #0
+   60 00000016         
+   61 00000016         CopierTVI
+   62 00000016 680B            LDR              R3, [R1]
+   63 00000018 F840 3B04       STR              R3, [R0], #4
+   64 0000001C F101 0104       ADD              R1, R1, #4
+   65 00000020 F102 0201       ADD              R2, R2, #1
+   66 00000024 F5B2 7F80       CMP              R2, #256
+   67 00000028 D1F5            BNE              CopierTVI
+   68 0000002A         
+   69 0000002A         ;Maintenant, on commence a instancier les routines pour 
+                       les interruptions 25, 27 et 30 dans la TVI
+   70 0000002A         
+   71 0000002A 4906            LDR              R1, =TVI
+   72 0000002C         
+   73 0000002C 4807            LDR              R0, =Timer_UP ;Pour l'interrupt
+                                                            ion 25 (TIM1_CNT = 
+                                                            0xFFFF), on crée la
+                                                             routine Timer_UP
+   74 0000002E F8C1 00A4       STR              R0, [R1, #(16+25)*4]
+   75 00000032         
+   76 00000032 4807            LDR              R0, =Timer_CC ;Pour l'interrupt
+                                                            ion 27 (senseur du 
+                                                            capteur activé), on
+                                                             crée la routine Ti
+                                                            mer_CC
+   77 00000034 F8C1 00AC       STR              R0, [R1, #(16+27)*4]
+   78 00000038         
+   79 00000038 4806            LDR              R0, =Timer_UP4
+   80 0000003A F8C1 00B8       STR              R0, [R1, #(16+30)*4] ;Pour l'in
+                                                            terruption 30 (TIM4
+
+
+
+ARM Macro Assembler    Page 10 
+
+
+                                                            _ARR = Tr/Nbsecteur
+                                                            s), on crée la rout
+                                                            ine Timer_UP
+   81 0000003E         
+   82 0000003E F7FF FFFE       BL               Run_Timer1
+   83 00000042         
+   84 00000042 E7FE    RoueMagique
+                               B                RoueMagique
+   85 00000044         
+   86 00000044                 ENDP
+   87 00000044                 END
               00000000 
               E000ED08 
+              00000000 
+              00000000 
+              00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\principale.d -o.\objects\principale.o -I.\RTE\Device\STM
 32F103RB -I.\RTE\_Simul_ -IC:\Users\emarina\AppData\Local\Arm\Packs\ARM\CMSIS\5
@@ -579,19 +623,36 @@ TVI 00000000
 
 Symbol: TVI
    Definitions
-      At line 33 in file Principale.asm
+      At line 38 in file Principale.asm
    Uses
-      At line 48 in file Principale.asm
-Comment: TVI used once
+      At line 54 in file Principale.asm
+      At line 71 in file Principale.asm
+
+Tourne 00000400
+
+Symbol: Tourne
+   Definitions
+      At line 39 in file Principale.asm
+   Uses
+      None
+Comment: Tourne unused
+Tr 00000404
+
+Symbol: Tr
+   Definitions
+      At line 40 in file Principale.asm
+   Uses
+      None
+Comment: Tr unused
 mesdonnees 00000000
 
 Symbol: mesdonnees
    Definitions
-      At line 31 in file Principale.asm
+      At line 36 in file Principale.asm
    Uses
       None
 Comment: mesdonnees unused
-2 symbols
+4 symbols
 
 
 
@@ -602,27 +663,35 @@ CopierTVI 00000016
 
 Symbol: CopierTVI
    Definitions
-      At line 55 in file Principale.asm
+      At line 61 in file Principale.asm
    Uses
-      At line 60 in file Principale.asm
+      At line 67 in file Principale.asm
 Comment: CopierTVI used once
+RoueMagique 00000042
+
+Symbol: RoueMagique
+   Definitions
+      At line 84 in file Principale.asm
+   Uses
+      At line 84 in file Principale.asm
+Comment: RoueMagique used once
 main 00000000
 
 Symbol: main
    Definitions
-      At line 42 in file Principale.asm
+      At line 49 in file Principale.asm
    Uses
-      At line 25 in file Principale.asm
+      At line 30 in file Principale.asm
 Comment: main used once
 moncode 00000000
 
 Symbol: moncode
    Definitions
-      At line 37 in file Principale.asm
+      At line 44 in file Principale.asm
    Uses
       None
 Comment: moncode unused
-3 symbols
+4 symbols
 
 
 
@@ -759,7 +828,7 @@ Symbol: SCB_VTOR
 ARM Macro Assembler    Page 3 Alphabetic symbol ordering
 Absolute symbols
 
-      At line 49 in file Principale.asm
+      At line 55 in file Principale.asm
 Comment: SCB_VTOR used once
 TIM1_CNT 40012C24
 
@@ -806,8 +875,48 @@ Symbol: Init_Cible
    Definitions
       At line 23 in file Principale.asm
    Uses
-      At line 46 in file Principale.asm
+      At line 52 in file Principale.asm
 Comment: Init_Cible used once
+Run_Timer1 00000000
+
+Symbol: Run_Timer1
+   Definitions
+      At line 24 in file Principale.asm
+   Uses
+      At line 82 in file Principale.asm
+Comment: Run_Timer1 used once
+Stop_Timer1 00000000
+
+Symbol: Stop_Timer1
+   Definitions
+      At line 25 in file Principale.asm
+   Uses
+      None
+Comment: Stop_Timer1 unused
+Timer_CC 00000000
+
+Symbol: Timer_CC
+   Definitions
+      At line 26 in file Principale.asm
+   Uses
+      At line 76 in file Principale.asm
+Comment: Timer_CC used once
+Timer_UP 00000000
+
+Symbol: Timer_UP
+   Definitions
+      At line 27 in file Principale.asm
+   Uses
+      At line 73 in file Principale.asm
+Comment: Timer_UP used once
+Timer_UP4 00000000
+
+Symbol: Timer_UP4
+   Definitions
+      At line 28 in file Principale.asm
+   Uses
+      At line 79 in file Principale.asm
+Comment: Timer_UP4 used once
 |Lib$$Request$$armlib| 00000000
 
 Symbol: |Lib$$Request$$armlib|
@@ -816,5 +925,5 @@ Symbol: |Lib$$Request$$armlib|
    Uses
       None
 Comment: |Lib$$Request$$armlib| unused
-2 symbols
-363 symbols in table
+7 symbols
+371 symbols in table

@@ -264,9 +264,9 @@ Image Symbol Table
     i.__scatterload_copy                     0x08001204   Section       14  handlers.o(i.__scatterload_copy)
     i.__scatterload_null                     0x08001212   Section        2  handlers.o(i.__scatterload_null)
     i.__scatterload_zeroinit                 0x08001214   Section       14  handlers.o(i.__scatterload_zeroinit)
-    moncode                                  0x08001224   Section       72  principale.o(moncode)
-    moncode                                  0x0800126c   Section       36  fonctionetape.o(moncode)
-    moncode                                  0x08001290   Section      200  foncasm.o(moncode)
+    moncode                                  0x08001224   Section       68  principale.o(moncode)
+    moncode                                  0x08001268   Section       36  fonctionetape.o(moncode)
+    moncode                                  0x0800128c   Section      200  foncasm.o(moncode)
     .data                                    0x20000000   Section       19  initialisation.o(.data)
     .data                                    0x20000014   Section       24  fonctiontimer.o(.data)
     incre                                    0x20000024   Data           4  fonctiontimer.o(.data)
@@ -390,13 +390,13 @@ Image Symbol Table
     __scatterload_copy                       0x08001205   Thumb Code    14  handlers.o(i.__scatterload_copy)
     __scatterload_null                       0x08001213   Thumb Code     2  handlers.o(i.__scatterload_null)
     __scatterload_zeroinit                   0x08001215   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    main                                     0x08001225   Thumb Code    62  principale.o(moncode)
-    Allume_LED                               0x0800126d   Thumb Code    14  fonctionetape.o(moncode)
-    Eteint_LED                               0x0800127b   Thumb Code    14  fonctionetape.o(moncode)
-    Envoie192Boucle                          0x08001291   Thumb Code   108  foncasm.o(moncode)
-    Envoie96Dot                              0x080012fd   Thumb Code    78  foncasm.o(moncode)
-    Region$$Table$$Base                      0x08001358   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08001378   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08001225   Thumb Code    60  principale.o(moncode)
+    Allume_LED                               0x08001269   Thumb Code    14  fonctionetape.o(moncode)
+    Eteint_LED                               0x08001277   Thumb Code    14  fonctionetape.o(moncode)
+    Envoie192Boucle                          0x0800128d   Thumb Code   108  foncasm.o(moncode)
+    Envoie96Dot                              0x080012f9   Thumb Code    78  foncasm.o(moncode)
+    Region$$Table$$Base                      0x08001354   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08001374   Number         0  anon$$obj.o(Region$$Table)
     PrtSurImage                              0x20000000   Data           4  initialisation.o(.data)
     BarretEnCours                            0x20000004   Data           4  initialisation.o(.data)
     DataSend                                 0x20000008   Data           1  initialisation.o(.data)
@@ -417,9 +417,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001408, Max: 0x00020000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001404, Max: 0x00020000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001378, Max: 0x00020000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001374, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -478,21 +478,21 @@ Memory Map of the image
     0x08001212   0x08001212   0x00000002   Code   RO          493    i.__scatterload_null  mc_w.l(handlers.o)
     0x08001214   0x08001214   0x0000000e   Code   RO          494    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x08001222   0x08001222   0x00000002   PAD
-    0x08001224   0x08001224   0x00000048   Code   RO            2    moncode             principale.o
-    0x0800126c   0x0800126c   0x00000024   Code   RO            9    moncode             fonctionetape.o
-    0x08001290   0x08001290   0x000000c8   Code   RO          334    moncode             Matos.lib(foncasm.o)
-    0x08001358   0x08001358   0x00000020   Data   RO          490    Region$$Table       anon$$obj.o
+    0x08001224   0x08001224   0x00000044   Code   RO            2    moncode             principale.o
+    0x08001268   0x08001268   0x00000024   Code   RO            9    moncode             fonctionetape.o
+    0x0800128c   0x0800128c   0x000000c8   Code   RO          334    moncode             Matos.lib(foncasm.o)
+    0x08001354   0x08001354   0x00000020   Data   RO          490    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001378, Size: 0x00000490, Max: 0x00005000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001374, Size: 0x00000490, Max: 0x00005000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08001378   0x00000013   Data   RW          100    .data               Matos.lib(initialisation.o)
-    0x20000013   0x0800138b   0x00000001   PAD
-    0x20000014   0x0800138c   0x00000018   Data   RW          232    .data               Matos.lib(fonctiontimer.o)
-    0x2000002c   0x080013a4   0x00000060   Data   RW          324    .data               Matos.lib(warning.o)
-    0x2000008c   0x08001404   0x00000004   Data   RW          410    .data               Matos.lib(timer_systick_1.o)
+    0x20000000   0x08001374   0x00000013   Data   RW          100    .data               Matos.lib(initialisation.o)
+    0x20000013   0x08001387   0x00000001   PAD
+    0x20000014   0x08001388   0x00000018   Data   RW          232    .data               Matos.lib(fonctiontimer.o)
+    0x2000002c   0x080013a0   0x00000060   Data   RW          324    .data               Matos.lib(warning.o)
+    0x2000008c   0x08001400   0x00000004   Data   RW          410    .data               Matos.lib(timer_systick_1.o)
     0x20000090        -       0x00000400   Zero   RW           13    STACK               startup_stm32f10x_md.o
 
 
@@ -503,13 +503,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        36          8          0          0          0        372   fonctionetape.o
-        72         10          0          0          0        360   principale.o
-        36          8        236          0       1024        812   startup_stm32f10x_md.o
-       328         28          0          0          0       6501   system_stm32f10x.o
+        36          8          0          0          0        400   fonctionetape.o
+        68          8          0          0          0        392   principale.o
+        36          8        236          0       1024        840   startup_stm32f10x_md.o
+       328         28          0          0          0       6621   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-       472         54        268          0       1024       8045   Object Totals
+       468         52        268          0       1024       8253   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -571,15 +571,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4716        396        268        144       1024     245612   Grand Totals
-      4716        396        268        144       1024     245612   ELF Image Totals
-      4716        396        268        144          0          0   ROM Totals
+      4712        394        268        144       1024     245820   Grand Totals
+      4712        394        268        144       1024     245820   ELF Image Totals
+      4712        394        268        144          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 4984 (   4.87kB)
+    Total RO  Size (Code + RO Data)                 4980 (   4.86kB)
     Total RW  Size (RW Data + ZI Data)              1168 (   1.14kB)
-    Total ROM Size (Code + RO Data + RW Data)       5128 (   5.01kB)
+    Total ROM Size (Code + RO Data + RW Data)       5124 (   5.00kB)
 
 ==============================================================================
 

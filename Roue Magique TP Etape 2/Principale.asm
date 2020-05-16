@@ -60,9 +60,7 @@ main  	PROC
 		MOV R1, #0
 		
 
-Boucle
-
-; on relève la valeur actuelle du capteur 
+Boucle 									; on relève la valeur actuelle du capteur 
 
 		LDR R4 ,=GPIOBASEA+OffsetInput	; R4 --> entrée du capteur
 		LDRH R5,[R4]					; R5 --> valeur actuelle du capteur
@@ -72,7 +70,7 @@ Boucle
 		MOV R4,#1						;sinon on met R4 à 1
 		B FinCapteur
 			
-Capteur0	MOV R4,#0						;si on est ici alors on avait un 0 au 8eme bit (capteur à 0) donc on affecte un 0 à R4	
+Capteur0	MOV R4,#0					;si on est ici alors on avait un 0 au 8eme bit (capteur à 0) donc on affecte un 0 à R4	
 
 FinCapteur 
  

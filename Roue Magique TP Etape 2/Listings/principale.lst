@@ -179,19 +179,19 @@ ARM Macro Assembler    Page 3
    60 00000008 F04F 0100       MOV              R1, #0
    61 0000000C         
    62 0000000C         
-   63 0000000C         Boucle
+   63 0000000C         Boucle                               ; on relève la vale
+                                                            ur actuelle du capt
+                                                            eur 
    64 0000000C         
-   65 0000000C         ; on relève la valeur actuelle du capteur 
-   66 0000000C         
-   67 0000000C 4C11            LDR              R4 ,=GPIOBASEA+OffsetInput ; R4
+   65 0000000C 4C11            LDR              R4 ,=GPIOBASEA+OffsetInput ; R4
                                                              --> entrée du capt
                                                             eur
-   68 0000000E 8825            LDRH             R5,[R4]     ; R5 --> valeur act
+   66 0000000E 8825            LDRH             R5,[R4]     ; R5 --> valeur act
                                                             uelle du capteur
-   69 00000010         
-   70 00000010 F415 7580       ANDS             R5,#(0x01<<8) ;on compare R5 av
+   67 00000010         
+   68 00000010 F415 7580       ANDS             R5,#(0x01<<8) ;on compare R5 av
                                                             ec 0x100
-   71 00000014 D002            BEQ              Capteur0    ;si ce n'est pas ég
+   69 00000014 D002            BEQ              Capteur0    ;si ce n'est pas ég
                                                             al, on laisse le R4
 
 
@@ -200,72 +200,72 @@ ARM Macro Assembler    Page 4
 
 
                                                              à 0
-   72 00000016 F04F 0401       MOV              R4,#1       ;sinon on met R4 à 
+   70 00000016 F04F 0401       MOV              R4,#1       ;sinon on met R4 à 
                                                             1
-   73 0000001A E001            B                FinCapteur
-   74 0000001C         
-   75 0000001C F04F 0400 
+   71 0000001A E001            B                FinCapteur
+   72 0000001C         
+   73 0000001C F04F 0400 
                        Capteur0
                                MOV              R4,#0       ;si on est ici alor
                                                             s on avait un 0 au 
                                                             8eme bit (capteur à
                                                              0) donc on affecte
                                                              un 0 à R4 
+   74 00000020         
+   75 00000020         FinCapteur
    76 00000020         
-   77 00000020         FinCapteur
-   78 00000020         
-   79 00000020         ; conditions de la boucle while --> tant que le capteur 
+   77 00000020         ; conditions de la boucle while --> tant que le capteur 
                        = 0 et que on a fait moins de M fois la boucle 
-   80 00000020         
-   81 00000020 2C01            CMP              R4, #1
-   82 00000022 D016            BEQ              FinBoucle   ; si le capteur est
+   78 00000020         
+   79 00000020 2C01            CMP              R4, #1
+   80 00000022 D016            BEQ              FinBoucle   ; si le capteur est
                                                              à 1, on sort
-   83 00000024         
-   84 00000024 2902            CMP              R1, #M
-   85 00000026 D014            BEQ              FinBoucle   ; si on est passé M
+   81 00000024         
+   82 00000024 2902            CMP              R1, #M
+   83 00000026 D014            BEQ              FinBoucle   ; si on est passé M
                                                              fois dans la boucl
                                                             e, on sort
+   84 00000028         
+   85 00000028         ; gestion de Barrette 1 et temporisation
    86 00000028         
-   87 00000028         ; gestion de Barrette 1 et temporisation
-   88 00000028         
-   89 00000028 480B            LDR              R0, =Barrette1
-   90 0000002A B401            PUSH             {R0}        ; on met la valeur 
+   87 00000028 480B            LDR              R0, =Barrette1
+   88 0000002A B401            PUSH             {R0}        ; on met la valeur 
                                                             de Barrette1 sur la
                                                              pile
-   91 0000002C F7FF FFFE       BL               DriverPile
-   92 00000030 B001            ADD              SP, #4      ; nettoyage de la p
+   89 0000002C F7FF FFFE       BL               DriverPile
+   90 00000030 B001            ADD              SP, #4      ; nettoyage de la p
                                                             ile
-   93 00000032         
-   94 00000032 F04F 0001       MOV              R0, #1
-   95 00000036 F7FF FFFE       BL               Tempo
+   91 00000032         
+   92 00000032 F04F 0001       MOV              R0, #1
+   93 00000036 F7FF FFFE       BL               Tempo
+   94 0000003A         
+   95 0000003A         ; gestion de Barrette 2 et temporisation 
    96 0000003A         
-   97 0000003A         ; gestion de Barrette 2 et temporisation 
-   98 0000003A         
-   99 0000003A 4808            LDR              R0, =Barrette2
-  100 0000003C B401            PUSH             {R0}
-  101 0000003E F7FF FFFE       BL               DriverPile
-  102 00000042 B001            ADD              SP, #4
-  103 00000044         
-  104 00000044 F04F 0001       MOV              R0, #1
-  105 00000048 F7FF FFFE       BL               Tempo
-  106 0000004C         
-  107 0000004C         ;incrémentation du compteur 
-  108 0000004C F101 0101       ADD              R1, #1
-  109 00000050         
-  110 00000050 E7DC            B                Boucle
+   97 0000003A 4808            LDR              R0, =Barrette2
+   98 0000003C B401            PUSH             {R0}
+   99 0000003E F7FF FFFE       BL               DriverPile
+  100 00000042 B001            ADD              SP, #4
+  101 00000044         
+  102 00000044 F04F 0001       MOV              R0, #1
+  103 00000048 F7FF FFFE       BL               Tempo
+  104 0000004C         
+  105 0000004C         ;incrémentation du compteur 
+  106 0000004C F101 0101       ADD              R1, #1
+  107 00000050         
+  108 00000050 E7DC            B                Boucle
+  109 00000052         
+  110 00000052         FinBoucle
   111 00000052         
-  112 00000052         FinBoucle
-  113 00000052         
-  114 00000052         
-  115 00000052                 ENDP
+  112 00000052         
+  113 00000052                 ENDP
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-  116 00000052         
-  117 00000052                 END
+  114 00000052         
+  115 00000052                 END
               00 00 40010808 
               00000000 
               00000000 
@@ -304,32 +304,32 @@ Symbol: Boucle
    Definitions
       At line 63 in file Principale.asm
    Uses
-      At line 110 in file Principale.asm
+      At line 108 in file Principale.asm
 Comment: Boucle used once
 Capteur0 0000001C
 
 Symbol: Capteur0
    Definitions
-      At line 75 in file Principale.asm
+      At line 73 in file Principale.asm
    Uses
-      At line 71 in file Principale.asm
+      At line 69 in file Principale.asm
 Comment: Capteur0 used once
 FinBoucle 00000052
 
 Symbol: FinBoucle
    Definitions
-      At line 112 in file Principale.asm
+      At line 110 in file Principale.asm
    Uses
-      At line 82 in file Principale.asm
-      At line 85 in file Principale.asm
+      At line 80 in file Principale.asm
+      At line 83 in file Principale.asm
 
 FinCapteur 00000020
 
 Symbol: FinCapteur
    Definitions
-      At line 77 in file Principale.asm
+      At line 75 in file Principale.asm
    Uses
-      At line 73 in file Principale.asm
+      At line 71 in file Principale.asm
 Comment: FinCapteur used once
 main 00000000
 
@@ -360,7 +360,7 @@ Symbol: GPIOBASEA
    Definitions
       At line 24 in file REG_UTILES.inc
    Uses
-      At line 67 in file Principale.asm
+      At line 65 in file Principale.asm
 Comment: GPIOBASEA used once
 GPIOBASEB 40010C00
 
@@ -376,7 +376,7 @@ Symbol: M
    Definitions
       At line 45 in file Principale.asm
    Uses
-      At line 84 in file Principale.asm
+      At line 82 in file Principale.asm
 Comment: M used once
 MaskBlank 00000004
 
@@ -454,7 +454,7 @@ Symbol: OffsetInput
    Definitions
       At line 27 in file REG_UTILES.inc
    Uses
-      At line 67 in file Principale.asm
+      At line 65 in file Principale.asm
 Comment: OffsetInput used once
 OffsetOutput 0000000C
 
@@ -539,7 +539,7 @@ Symbol: Barrette1
    Definitions
       At line 28 in file Principale.asm
    Uses
-      At line 89 in file Principale.asm
+      At line 87 in file Principale.asm
 Comment: Barrette1 used once
 Barrette2 00000000
 
@@ -547,7 +547,7 @@ Symbol: Barrette2
    Definitions
       At line 29 in file Principale.asm
    Uses
-      At line 99 in file Principale.asm
+      At line 97 in file Principale.asm
 Comment: Barrette2 used once
 DriverGlobal 00000000
 
@@ -563,8 +563,8 @@ Symbol: DriverPile
    Definitions
       At line 26 in file Principale.asm
    Uses
-      At line 91 in file Principale.asm
-      At line 101 in file Principale.asm
+      At line 89 in file Principale.asm
+      At line 99 in file Principale.asm
 
 DriverReg 00000000
 
@@ -626,8 +626,8 @@ Symbol: Tempo
    Definitions
       At line 27 in file Principale.asm
    Uses
-      At line 95 in file Principale.asm
-      At line 105 in file Principale.asm
+      At line 93 in file Principale.asm
+      At line 103 in file Principale.asm
 
 |Lib$$Request$$armlib| 00000000
 

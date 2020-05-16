@@ -169,50 +169,49 @@ ARM Macro Assembler    Page 3
    51 0000000C         
    52 0000000C         TantQue
    53 0000000C         
-   54 0000000C 4A0C            LDR              R2, =0X40010808
+   54 0000000C 4A0B            LDR              R2, =0X40010808
    55 0000000E 7851            LDRB             R1, [R2,#1]
    56 00000010 2901            CMP              R1, #1
    57 00000012         
-   58 00000012 D002            BEQ              allume
+   58 00000012 D001            BEQ              Allume
    59 00000014 F7FF FFFE       BL               Eteint_LED  ;
-   60 00000018 E7F8            B                TantQue
-   61 0000001A         
-   62 0000001A         allume
-   63 0000001A F7FF FFFE       BL               Allume_LED  ;
-   64 0000001E         
-   65 0000001E F105 0501       ADD              R5,#1
-   66 00000022 2D0A            CMP              R5,#10
-   67 00000024 D00A            BEQ              Boucle
-   68 00000026         
-   69 00000026 E7F1            B                TantQue
-   70 00000028         
-   71 00000028         
-   72 00000028         ; pour allumer la LED avec le registre output  
-   73 00000028 4A06            LDR              R2, =0x40010C0C
-   74 0000002A 8811            LDRH             R1, [R2]
-   75 0000002C F441 6180       ORR              R1, R1, #(0x01 << 10)
-   76 00000030 8011            STRH             R1, [R2]
-   77 00000032         
+   60 00000018         
+   61 00000018         Allume
+   62 00000018 F7FF FFFE       BL               Allume_LED  ;
+   63 0000001C         
+   64 0000001C F105 0501       ADD              R5,#1
+   65 00000020 2D0A            CMP              R5,#10
+   66 00000022 D00A            BEQ              Boucle
+   67 00000024         
+   68 00000024 E7F2            B                TantQue
+   69 00000026         
+   70 00000026         
+   71 00000026         ; pour allumer la LED avec le registre output  
+   72 00000026 4A06            LDR              R2, =0x40010C0C
+   73 00000028 8811            LDRH             R1, [R2]
+   74 0000002A F441 6180       ORR              R1, R1, #(0x01 << 10)
+   75 0000002E 8011            STRH             R1, [R2]
+   76 00000030         
+   77 00000030         ; pour éteindre la LED avec le registre output
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-   78 00000032         ; pour éteindre la LED avec le registre output
-   79 00000032 4A04            LDR              R2, =0x40010C0C
-   80 00000034 8811            LDRH             R1, [R2]
-   81 00000036 F421 6180       AND              R1, #~(0x01 << 10)
-   82 0000003A 8011            STRH             R1, [R2]
-   83 0000003C         
-   84 0000003C         Boucle
-   85 0000003C E7FE            B                Boucle      ;boucle inifinie te
+   78 00000030 4A03            LDR              R2, =0x40010C0C
+   79 00000032 8811            LDRH             R1, [R2]
+   80 00000034 F421 6180       AND              R1, #~(0x01 << 10)
+   81 00000038 8011            STRH             R1, [R2]
+   82 0000003A         
+   83 0000003A         Boucle
+   84 0000003A E7FE            B                Boucle      ;boucle inifinie te
                                                             rminale...
-   86 0000003E         
-   87 0000003E                 ENDP
-   88 0000003E         
-   89 0000003E                 END
-              00 00 40010808 
+   85 0000003C         
+   86 0000003C                 ENDP
+   87 0000003C         
+   88 0000003C                 END
+              40010808 
               40010C0C 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\principale.d -o.\objects\principale.o -I.\RTE\Device\STM
@@ -243,14 +242,22 @@ Comment: mesdonnees unused
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Relocatable symbols
 
-Boucle 0000003C
+Allume 00000018
+
+Symbol: Allume
+   Definitions
+      At line 61 in file Principale.asm
+   Uses
+      At line 58 in file Principale.asm
+Comment: Allume used once
+Boucle 0000003A
 
 Symbol: Boucle
    Definitions
-      At line 84 in file Principale.asm
+      At line 83 in file Principale.asm
    Uses
-      At line 67 in file Principale.asm
-      At line 85 in file Principale.asm
+      At line 66 in file Principale.asm
+      At line 84 in file Principale.asm
 
 TantQue 0000000C
 
@@ -258,17 +265,8 @@ Symbol: TantQue
    Definitions
       At line 52 in file Principale.asm
    Uses
-      At line 60 in file Principale.asm
-      At line 69 in file Principale.asm
-
-allume 0000001A
-
-Symbol: allume
-   Definitions
-      At line 62 in file Principale.asm
-   Uses
-      At line 58 in file Principale.asm
-Comment: allume used once
+      At line 68 in file Principale.asm
+Comment: TantQue used once
 main 00000000
 
 Symbol: main
@@ -469,7 +467,7 @@ Symbol: Allume_LED
    Definitions
       At line 25 in file Principale.asm
    Uses
-      At line 63 in file Principale.asm
+      At line 62 in file Principale.asm
 Comment: Allume_LED used once
 Eteint_LED 00000000
 
