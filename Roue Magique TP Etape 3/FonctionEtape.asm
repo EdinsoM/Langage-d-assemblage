@@ -133,10 +133,8 @@ Timer_UP4	PROC
 		MOV		R3, #0x14			;Pendant chaque tourne, l'information pour les 48 LED's est envoyé, ensuite, pour changer de secteur, on doit sauter un space de 20 octets (ou 0x14)
 		MUL		R3, R2, R3			;En plus, on doit sauter les 20 octets multipliés par la piste où on se trouve
 		ADD		R0, R1, R3			;Finalement, on ajoute cette valeur à l'adresse de mire
-		PUSH 	{R0}
-		BL 		DriverPile
-		ADD 	SP, #4				;Nettoyage de la pile
-		
+		BL 		DriverReg
+
 		LDR		R0, =PisteMire
 		LDR		R2, [R0]
 		ADD		R2, R2, #1
@@ -152,68 +150,63 @@ Timer_UP4	PROC
 		
 			ENDP
 
-DriverPile	PROC
+DriverReg	PROC
 	
-		PUSH {R10}
-		MOV R10, SP
-	
-		PUSH 	{LR,R1-R4}
+		PUSH 	{R1-R5, LR}
 		
-		
-		MOV		R1, #0 	
+		MOV		R1, #0 	;NbLED
 		LDR 	R3, =Valcourante
 		BL 		SetSCLK
-		LDR 	R0, [R10, #4] ;on rajoute 4o pour récupérer l'adresse de la barrette pushée
 		
-PourPile
+PourReg
 		CMP		R1, #48
-		BEQ		FinPourPile		
+		BEQ		FinPourReg
 		
+		
+FairePourReg
 		LDRB	R3,[R0,R1]
 		LSL		R3, #24
 			
 		MOV		R2, #0 
 		
-AutrePourPile	
+AutrePourReg		
 		CMP		R2, #12
-		BEQ		FinAutrePourPile
+		BEQ		FinAutrePourReg
 
 		BL		ResetSCLK
 		
 		ANDS	R4, R3, #0x80000000 
-		BNE		SinonPile	
+		BEQ		SinonReg	
 		BL		SetSin 		
-		B		FinSiPile
+		B		FinSiReg
 		
-SinonPile
-		BL 		ResetSin
+SinonReg
+		BL ResetSin
 
-FinSiPile
+FinSiReg
 		LSL		R3, #1 ; on positionne ValCourante au bit suivant
-		BL 		SetSCLK
+		BL 	SetSCLK
 
 		ADD		R2, #1 
-		B		AutrePourPile
+		B		AutrePourReg
 		
-FinAutrePourPile
-		ADD		R1, #1 ;NbLed+1
-		B		PourPile
+FinAutrePourReg		
+		ADD		R1, #1 
+		B		PourReg
 
-FinPourPile
+FinPourReg
 
 ; Les deux boucles sont terminées 
 
-		MOV		R1, #0 ;DataSend = 0 à chaque envoi de donnée 
-		LDR 	R2, =DataSend 
-		STRB	R1, [R2]
+		MOV		R5, #0 ;DataSend = 0 à chaque envoi de donnée 
+		LDR 	R1, =DataSend 
+		STRB	R1, [R5]
 		
-		POP {LR, R1-R4}
-		POP{R10}
+		POP {R1-R5, LR}
 		
 		BX LR
 		
-			ENDP
-			
+		ENDP			
 ;########################################################################
 ; Procédure de gestion des LEDs 
 ;########################################################################
