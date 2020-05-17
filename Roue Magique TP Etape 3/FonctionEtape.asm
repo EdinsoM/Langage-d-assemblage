@@ -64,7 +64,7 @@ Timer_CC	PROC
 		CMP		R1, #3
 		LDR		R2, =PisteMire
 		MOV		R3, #0
-		STR		R3, [R2]
+		STR		R3, [R2]			;On rédemarre la Piste à 0 parce que si on est ici, dans Timer_CC, est dû à que la roue a fait une tourne complete
 		BEQ		BonneVitesse		;Si R1 = 3, ça va dire que la roue a tourné 3 fois, c'est suffisant pour assurer la vitesse radiale constante et faire un bon calcul de TIM4_ARR
 
 		ADD		R1, R1, #1
@@ -126,12 +126,13 @@ Timer_UP4	PROC
 		
 		PUSH	{R0-R3, LR}
 		
-		LDR		R0, =PisteMire
+		NOP
+		LDR		R0, =PisteMire		;On regarde dans quelle piste se trouve la roue
 		LDR		R2, [R0]
 		
 		LDR 	R1, =mire
-		MOV		R3, #0x14			;Pendant chaque tourne, l'information pour les 48 LED's est envoyé, ensuite, pour changer de secteur, on doit sauter un space de 20 octets (ou 0x14)
-		MUL		R3, R2, R3			;En plus, on doit sauter les 20 octets multipliés par la piste où on se trouve
+		MOV		R3, #0x30			;Pendant chaque tourne, l'information pour les 48 LED's est envoyé, ensuite, pour changer de secteur, on doit sauter un space de 48 octets (ou 0x30)
+		MUL		R3, R2, R3			;En plus, on doit sauter les 48 octets multipliés par la piste où on se trouve
 		ADD		R0, R1, R3			;Finalement, on ajoute cette valeur à l'adresse de mire
 		BL 		DriverReg
 
@@ -181,11 +182,11 @@ AutrePourReg
 		B		FinSiReg
 		
 SinonReg
-		BL ResetSin
+		BL 		ResetSin
 
 FinSiReg
 		LSL		R3, #1 ; on positionne ValCourante au bit suivant
-		BL 	SetSCLK
+		BL 		SetSCLK
 
 		ADD		R2, #1 
 		B		AutrePourReg
