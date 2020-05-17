@@ -39,26 +39,24 @@ PisteMire	DCD 0
 	
 ;**************************************************************************
 
-
-
 ;***************CODE*******************************************************
    	AREA  moncode, code, readonly
 ;**************************************************************************
 
 
 ;########################################################################
-; Procédure ????
+; Procédure: routines utilisées par la TVI
 ;########################################################################
 ;
-; Paramètre entrant  : ???
-; Paramètre sortant  : ???
-; Variables globales : ???
-; Registres modifiés : ???
+; Paramètre entrant  : LR, PC
+; Paramètre sortant  : LR, PC
+; Variables globales : Nbsecteurs, mire, DataSend
+; Registres modifiés : Aucun, tous les registres utilisés sont sauvegardés dans la Pile Systéme 
 ;------------------------------------------------------------------------
 
 Timer_CC	PROC
 		
-		PUSH	{R1, R2, LR}
+		PUSH	{R1-R3, LR}
 		LDR		R0, =Capture
 		LDR		R1, [R0]
 		CMP		R1, #3
@@ -79,7 +77,7 @@ Timer_CC	PROC
 		AND		R1, R1, #0xFFFFFFFD
 		STR		R1, [R0]			;Acquittement de l'interruption
 		
-		POP		{R1, R2, LR}
+		POP		{R1-R3, LR}
 		BX		LR					;Fin de l'interruption
 		
 BonneVitesse						;Partie de la procedure Timer_CC
@@ -94,7 +92,7 @@ BonneVitesse						;Partie de la procedure Timer_CC
 		LDR		R0, =TIM1_SR		
 		LDR		R1, [R0]
 		AND		R1, R1, #0xFFFFFFFD 
-		STR		R1, [R0]			;Acquittement de l'interruption
+		STR		R1, [R0]			;Acquittement de l'interruption en effaçant le bit de rang 1 trouvé dans TIM1_SR
 		
 		LDR		R0, =TIM1_CNT		
 		MOV		R1, #0	
@@ -102,7 +100,7 @@ BonneVitesse						;Partie de la procedure Timer_CC
 		
 		BL		Run_Timer4			;Démarrage du Timer4 pour commencer l'affichage des secteurs
 		
-		POP		{R1, R2, LR}
+		POP		{R1-R3, LR}
 		BX		LR				
 		
 			ENDP
@@ -110,12 +108,17 @@ BonneVitesse						;Partie de la procedure Timer_CC
 Timer_UP	PROC					;Ici, TIM1_CNT = 0xFFFF
 		
 		PUSH	{R1, LR}
-		BL		Stop_Timer4
 		
+		LDR 	R0, =Capture		
+		MOV 	R1, #0
+		STR		R1, [R0]			;On met à 0 la valeur de Capture
+		
+		BL		Stop_Timer4
+				
 		LDR		R0, =TIM1_SR		
 		LDR		R1, [R0]
-		AND		R1, R1, #0xFFFFFFFD
-		STR		R1, [R0]			;Acquittement de l'interruption
+		AND		R1, R1, #0xFFFFFFFE
+		STR		R1, [R0]			;Acquittement de l'interruption en effaçant de bit de rang 0 trouvé dans TIM1_SR
 		
 		POP		{R1, LR}
 		BX		LR					
@@ -144,7 +147,7 @@ Timer_UP4	PROC
 		LDR		R0, =TIM4_SR		
 		LDR		R1, [R0]
 		AND		R1, R1, #0xFFFFFFFE
-		STR		R1, [R0]			;Acquittement de l'interruption
+		STR		R1, [R0]			;Acquittement de l'interruption en effaçant le bit de rang 0 trouvé dans TIM4_SR
 		
 		POP		{LR, R0-R3}
 		BX		LR
@@ -203,9 +206,9 @@ FinPourReg
 		LDR 	R1, =DataSend 
 		STRB	R1, [R5]
 		
-		POP {R1-R5, LR}
+		POP 	{R1-R5, LR}
 		
-		BX LR
+		BX 		LR
 		
 		ENDP			
 ;########################################################################
