@@ -36,8 +36,6 @@
 	AREA  mesdonnees, data, readwrite, align = 9
 		
 TVI 		space 1024 ;4*(N+1)? soit N = 256 (on va copier toute la table)
-Tourne		DCD 0
-Tr			DCD 0
 	
 ;*******************************************************************************
 	
